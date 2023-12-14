@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DataBase, db } from "../../config/Firebase";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { getFirestore } from "@firebase/firestore";
 
 const initialState = {
@@ -19,6 +19,24 @@ export const getEnrolledCourses = createAsyncThunk(
 			const data = await getDoc(coursesEnrollCollectionRef);
 			console.log(data?.data());
 			return data?.data();
+		} catch (error) {
+			if (error) {
+				alert("Some Error Occured!");
+			}
+		}
+	}
+);
+
+// put api
+export const markCompleted = createAsyncThunk(
+	"courseSlice/getEnrolledCourses",
+	async (data, thunkAPI) => {
+		const coursesEnrollCollectionRef = doc(db, "users", data?.email);
+
+		try {
+			const resp = await updateDoc(coursesEnrollCollectionRef, data?.data);
+			console.log(resp?.data());
+			return resp?.data();
 		} catch (error) {
 			if (error) {
 				alert("Some Error Occured!");

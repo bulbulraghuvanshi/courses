@@ -7,8 +7,8 @@ const LogIn = () => {
 	const navigate = useNavigate();
 	const { user } = useSelector((store) => store.users);
 	const dispatch = useDispatch();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("alice@example.com");
+	const [password, setPassword] = useState("123456");
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -60,6 +60,7 @@ const LogIn = () => {
 							placeholder="Enter your email"
 							className="border p-2 text-sm"
 							onChange={handleChange}
+							value={email}
 						/>
 					</div>
 					<div>
@@ -70,6 +71,7 @@ const LogIn = () => {
 							placeholder="Enter your email"
 							className="border p-2 text-sm"
 							onChange={handleChange}
+							value={password}
 						/>
 					</div>
 					<button

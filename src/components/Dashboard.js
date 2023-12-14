@@ -3,7 +3,10 @@ import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { getEnrolledCourses } from "../features/EnrolledCourses/EnrolledCoursesSlice";
+import {
+	getEnrolledCourses,
+	markCompleted,
+} from "../features/EnrolledCourses/EnrolledCoursesSlice";
 
 const Dashboard = () => {
 	const { user } = useSelector((store) => store.users);
@@ -14,14 +17,27 @@ const Dashboard = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [showComplete, setComplete] = useState(false);
-	const [isComplete, markComplete] = useState(false);
+	const [Complete, setMarkComplete] = useState(false);
 
 	const handleComplete = (id) => {
 		showComplete ? setComplete(false) : setComplete(id);
 	};
 
-	const handleMark = () => {
-		isComplete === true ? markComplete(false) : markComplete(true);
+	const handleMark = async (id, st) => {
+		var statusCpmlt = { ...completedStatus };
+		console.log(statusCpmlt);
+		statusCpmlt[id] = st;
+		await dispatch(
+			markCompleted({
+				email: user?.email,
+				data: {
+					coursesEnrolled: statusCpmlt,
+					coursesEnrolledList: EnrolledCourseList,
+					name: name,
+				},
+			})
+		);
+		dispatch(getEnrolledCourses(user?.email));
 	};
 
 	const Navigate = useNavigate();
@@ -75,7 +91,7 @@ const Dashboard = () => {
 										// onMouseEnter={handleComplete}
 										onMouseEnter={() => handleComplete(data?.id)}
 										onMouseLeave={() => handleComplete(data?.id)}
-										onClick={handleMark}
+										onClick={() => handleMark(data?.id, true)}
 									/>
 									<IoCheckmarkDoneCircle
 										className={`handleMark ${
@@ -83,7 +99,7 @@ const Dashboard = () => {
 												? "cursor-pointer text-3xl text-green-600"
 												: "hidden"
 										}`}
-										onClick={handleMark}
+										onClick={() => handleMark(data?.id, false)}
 									/>
 
 									<div
