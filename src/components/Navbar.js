@@ -45,8 +45,8 @@ const Navbar = () => {
 					{/* This div contains the logo for the website  */}
 					<div className="flex gap-3 w-1/6 mx-10  h-30 justify-center items-center font-bold ">
 						<Link to="/" className="text-2xl text-violet-950  ">
-							<strong className="text-4xl text-black ">L</strong>
-							OGO
+							<strong className="text-4xl text-black ">A</strong>
+							LEMENO
 						</Link>
 					</div>
 
@@ -161,9 +161,9 @@ const Navbar = () => {
 							to="/"
 							className="text-2xl text-violet-950  max-[450px]:text-sm">
 							<strong className="text-4xl text-black max-[450px]:text-lg">
-								L
+								A
 							</strong>
-							OGO
+							LEMENO
 						</Link>
 					</div>
 					{/* This div contains the search bar  */}
